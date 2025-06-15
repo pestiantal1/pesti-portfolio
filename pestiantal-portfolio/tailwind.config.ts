@@ -1,11 +1,13 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss'
+import typography from '@tailwindcss/typography'
+
+const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'media', // or 'class' for manual toggle
+  darkMode: 'media',
   theme: {
     extend: {
       colors: {
@@ -22,7 +24,6 @@ module.exports = {
           800: '#7a92ca',
           900: '#bdc9e5'
         },
-        
         // Secondary color - supporting accents
         secondary: {
           DEFAULT: '#1d2d44', // Prussian Blue
@@ -80,14 +81,20 @@ module.exports = {
         }
       },
       fontFamily: {
-        // Modern sans-serif font for headings and general text
+        // Set Inter as the primary font
         sans: ['Inter', 'SF Pro Display', 'system-ui', 'sans-serif'],
         // Monospace font for code and typing animation
         mono: ['SF Mono', 'JetBrains Mono', 'Menlo', 'monospace'],
         // Optional display font for specific headings or accents
         display: ['Poppins', 'system-ui', 'sans-serif'],
+        // Add a specific class for Inter
+        inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
     },
   },
-  plugins: [],
+  plugins: [
+    typography(),
+  ],
 }
+
+export default config

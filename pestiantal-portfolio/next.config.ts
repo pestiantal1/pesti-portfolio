@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  output: 'export', // Generates static HTML/CSS/JS for GitHub Pages
+  basePath: process.env.NODE_ENV === 'production' ? '/pesti-portfolio' : '', // Adjust to your repo name
+  images: {
+    unoptimized: true, // For static export
+  },
+}
 
-export default nextConfig;
+export default nextConfig
