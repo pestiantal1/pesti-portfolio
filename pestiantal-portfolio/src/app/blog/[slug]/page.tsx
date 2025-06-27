@@ -3,16 +3,13 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { blogPosts } from '@/app/blogData';
 import matter from 'gray-matter';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
-// Import the generateStaticParams function
 import { generateStaticParams } from './generateStaticParams';
-
-// Re-export it
 export { generateStaticParams };
 
-// Format markdown to HTML with adjusted heading spacing
+// Format markdown to HTML function
 function formatMarkdown(markdown: string) {
   if (!markdown) return '';
   
@@ -25,47 +22,56 @@ function formatMarkdown(markdown: string) {
     .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-4 mb-2">$1</h3>')
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/!\[(.*?)\]\((.*?)\)/g, '<div class="my-4"><img alt="$1" src="$2" class="rounded-lg max-w-full mx-auto" /></div>')
+    .replace(/!\[(.*?)\]\((.*?)\)/g, '<img alt="$1" src="$2" class="my-4 rounded-lg">')
     .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-accent hover:underline">$1</a>')
-    .replace(/^(\d+)\. (.*$)/gm, '<li class="ml-6 list-decimal">$2</li>')
-    .replace(/^- (.*$)/gm, '<li class="ml-6 list-disc">$1</li>')
-    .replace(/<\/li>\s*<li class="ml-6 list-decimal">/g, '</li><li class="ml-6 list-decimal">')
-    .replace(/<\/li>\s*<li class="ml-6 list-disc">/g, '</li><li class="ml-6 list-disc">')
-    .replace(/(<li class="ml-6 list-decimal">.*<\/li>)/gs, '<ol class="my-3">$1</ol>')
-    .replace(/(<li class="ml-6 list-disc">.*<\/li>)/gs, '<ul class="my-3">$1</ul>')
-    // Split by double newlines (paragraphs in markdown)
-    .split(/\n\n+/).map(paragraph => {
-      if (paragraph.startsWith('<h') || 
+    .replace(/^- (.*$)/gm, '<li>$1</li>')
+    .replace(/<\/li>\n<li>/g, '</li><li>')
+    .replace(/(<li>[\s\S]*<\/li>)/g, '<ul class="list-disc pl-5 my-3">$1</ul>')
+    .replace(/```(.*?)\n([\s\S]*?)```/g, '<pre class="bg-primary-400 p-4 rounded-lg my-4 overflow-x-auto"><code>$2</code></pre>')
+    .replace(/`([^`]+)`/g, '<code class="bg-primary-400 px-1 rounded text-sm">$1</code>')
+    .split('\n\n').map(paragraph => {
+      if (paragraph.startsWith('<h1') || 
+          paragraph.startsWith('<h2') || 
+          paragraph.startsWith('<h3') || 
           paragraph.startsWith('<ul') || 
-          paragraph.startsWith('<ol') ||
-          paragraph.startsWith('<div')) {
+          paragraph.startsWith('<pre') || 
+          paragraph.startsWith('<img')) {
         return paragraph;
       }
-      // Replace single newlines with spaces for proper paragraph formatting
       return `<p class="my-3">${paragraph.replace(/\n/g, ' ')}</p>`;
     }).join('');
 }
 
-// Update your page component to use the correct types
-
-type BlogPostParams = {
-  params: {
-    slug: string;
-  };
-};
-
-// Define proper return type for generateMetadata
-export async function generateMetadata({ params }: BlogPostParams): Promise<Metadata> {
-  // Your metadata generation logic
+// Metadata function
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const post = blogPosts.find(post => post.slug === resolvedParams.slug);
+  
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+      description: 'The requested blog post could not be found'
+    };
+  }
+  
   return {
-    title: `Blog Post - ${params.slug}`,
-    // Other metadata properties
+    title: post.title,
+    description: post.excerpt
   };
 }
 
-// Make sure the page component has correct typing
-export default async function BlogPost({ params }: BlogPostParams) {
-  const { slug } = params;
+// Page component
+export default async function BlogPost({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
   
   // Find the blog post metadata
   const post = blogPosts.find(post => post.slug === slug);
@@ -96,14 +102,9 @@ export default async function BlogPost({ params }: BlogPostParams) {
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
         <div className="text-neutral mb-8">{post.date}</div>
         
-        <article className="prose prose-invert prose-lg max-w-none 
-                            prose-h1:mt-6 prose-h1:mb-3 
-                            prose-h2:mt-5 prose-h2:mb-2 
-                            prose-h3:mt-4 prose-h3:mb-2
-                            prose-p:my-2 prose-img:my-4">
+        <article className="prose prose-invert prose-lg max-w-none">
           <div 
             dangerouslySetInnerHTML={{ __html: formatMarkdown(postContent) }} 
-            className="[&>p]:my-3 [&>h1]:mt-6 [&>h1]:mb-3 [&>h2]:mt-5 [&>h2]:mb-2 [&>h3]:mt-4 [&>h3]:mb-2"
           />
         </article>
       </div>

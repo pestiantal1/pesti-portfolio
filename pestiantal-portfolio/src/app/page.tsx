@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 // Social media icons
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
@@ -45,7 +45,8 @@ export default function Home() {
   const [cursorVisible, setCursorVisible] = useState(true)
   
   const fullName = 'Antal Pesti'
-  const roles = ['Python teacher', 'ML Engineer', 'Software Developer']
+  // Wrap roles in useMemo to prevent it from changing on each render
+  const roles = useMemo(() => ['Python teacher', 'ML Engineer', 'Software Developer'], []);
   
   // Effect for cursor blinking animation
   useEffect(() => {
