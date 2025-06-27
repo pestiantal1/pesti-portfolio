@@ -45,7 +45,7 @@ export default function Home() {
   const [cursorVisible, setCursorVisible] = useState(true)
   
   const fullName = 'Antal Pesti'
-  const roles = ['Python teacher','Student', 'ML Engineer', 'Full-Stack Developer']
+  const roles = ['Python teacher', 'ML Engineer', 'Software Developer']
   
   // Effect for cursor blinking animation
   useEffect(() => {
