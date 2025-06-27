@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { blogPosts } from '@/app/blogData';
@@ -45,7 +46,25 @@ function formatMarkdown(markdown: string) {
     }).join('');
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
+// Update your page component to use the correct types
+
+type BlogPostParams = {
+  params: {
+    slug: string;
+  };
+};
+
+// Define proper return type for generateMetadata
+export async function generateMetadata({ params }: BlogPostParams): Promise<Metadata> {
+  // Your metadata generation logic
+  return {
+    title: `Blog Post - ${params.slug}`,
+    // Other metadata properties
+  };
+}
+
+// Make sure the page component has correct typing
+export default async function BlogPost({ params }: BlogPostParams) {
   const { slug } = params;
   
   // Find the blog post metadata

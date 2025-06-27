@@ -8,9 +8,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -28,9 +27,11 @@ jobs:
         working-directory: ./pestiantal-portfolio
         run: npm run build
 
-      - name: Deploy 🚀
+      - name: Create .nojekyll file
+        run: touch ./pestiantal-portfolio/out/.nojekyll
+
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: pestiantal-portfolio/out
           branch: gh-pages
-          clean: true

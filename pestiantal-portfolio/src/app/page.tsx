@@ -113,7 +113,7 @@ export default function Home() {
     }, typingSpeed)
     
     return () => clearTimeout(timer)
-  }, [nameText, roleText, roleIndex, isDeleting, typingSpeed, fullName])
+  }, [nameText, roleText, roleIndex, isDeleting, typingSpeed, fullName, roles])
   
   return (
     <div className="min-h-screen bg-primary text-light">
