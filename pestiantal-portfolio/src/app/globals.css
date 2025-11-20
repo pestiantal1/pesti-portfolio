@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "highlight.js/styles/atom-one-dark.css"; /* Dark theme for code */
 
 :root {
   /* Custom color variables matching your tailwind.config.js */
@@ -18,4 +19,79 @@ body {
   color: var(--color-light);
   font-family: var(--font-inter), system-ui, sans-serif;
   font-weight: 400; /* Set regular weight as default */
+}
+
+/* Blog content styles */
+.blog-content pre {
+  background: #282c34 !important; /* Match highlight.js theme */
+  border: 1px solid #3e5c76;
+  border-radius: 8px;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.blog-content pre.hljs {
+  background: #282c34 !important;
+}
+
+.blog-content code {
+  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+
+.blog-content pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: #abb2bf;
+}
+
+.blog-content ul, .blog-content ol {
+  margin-left: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-content li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.6;
+}
+
+.blog-content p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Inline code styling */
+.blog-content :not(pre) > code {
+  background: #3e5c76 !important;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+/* Link styling */
+.blog-content a {
+  color: #60a5fa; /* Blue-400 */
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.blog-content a:hover {
+  color: #93c5fd; /* Blue-300 */
+  text-decoration: none;
+}
+
+/* Alternative: Use your accent color */
+.blog-content a {
+  color: #748cab; /* Your neutral color */
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.blog-content a:hover {
+  color: #f0ebd8; /* Your light color */
+  text-decoration: none;
 }
