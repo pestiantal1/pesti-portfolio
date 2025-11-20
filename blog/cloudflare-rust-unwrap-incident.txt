@@ -1,0 +1,140 @@
+1:"$Sreact.fragment"
+2:I[7555,[],""]
+3:I[1295,[],""]
+5:I[9665,[],"MetadataBoundary"]
+7:I[9665,[],"OutletBoundary"]
+a:I[4911,[],"AsyncMetadataOutlet"]
+c:I[9665,[],"ViewportBoundary"]
+e:I[6614,[],""]
+:HL["/_next/static/media/4cf2300e9c8272f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/93f479601ee12b01-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/e4af272ccee01ff0-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/css/edc7b52c7854439f.css","style"]
+0:{"P":null,"b":"9lUz8hqpHfxLdvOtrqqOs","p":"","c":["","blog","cloudflare-rust-unwrap-incident"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","cloudflare-rust-unwrap-incident","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/edc7b52c7854439f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"className":"__variable_d88be3 __variable_188709 __variable_9a8899 font-inter antialiased","children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}],{"children":["blog",["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","cloudflare-rust-unwrap-incident","d"],["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L4",["$","$L5",null,{"children":"$L6"}],null,["$","$L7",null,{"children":["$L8","$L9",["$","$La",null,{"promise":"$@b"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","R0P4cJ0oJvMNQCAIXjknf",{"children":[["$","$Lc",null,{"children":"$Ld"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],null]}],false]],"m":"$undefined","G":["$e","$undefined"],"s":false,"S":true}
+f:"$Sreact.suspense"
+10:I[4911,[],"AsyncMetadata"]
+12:I[6874,["874","static/chunks/874-e2d9fd6bf963052c.js","953","static/chunks/app/blog/%5Bslug%5D/page-0c06a28ef072ede6.js"],""]
+6:["$","$f",null,{"fallback":null,"children":["$","$L10",null,{"promise":"$@11"}]}]
+13:T4bba,<h1 class="text-3xl font-bold mt-6 mb-3">The Cloudflare Outage</h1>
+<h2 class="text-2xl font-bold mt-5 mb-2">TL;DR</h2>
+<p class="my-3 leading-relaxed"><div class="flex justify-center my-6">   <img src="/images/blog/cloudflare-rust-unwrap/funny.gif" alt="gif" class="rounded-lg max-w-md w-full" /> </div></p>
+<p class="my-3 leading-relaxed">So Cloudflare did an oopsie on November 18, 2025, making half of the internet users worried about their ISP. X, Discord and many other sites were affected. The culprit? A single <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code> call in Rust that panicked when the bot management service reveived 200+ feature flags instead of the expected 60. Many blamed Rust, while the reality is more neuanced, this failuer was triggered by a constraint violation in a high-performance system.</p>
+<h2 class="text-2xl font-bold mt-5 mb-2">What happened?</h2>
+To understand the issue, we should look at what Cloudflare basicly is. You can think of it as a middle man, between you and your service.
+When you visit a site, it doesn't go directly to their servers, instead, it flows through Cloudflare first.
+<p class="my-3 leading-relaxed">There it acts as a <a href="https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/" class="text-accent hover:underline">Reverse Proxy</a> as it's making some critical checks like: <ul class="list-disc pl-5 my-3 space-y-1"><li>Are you a bot?</li> <li>An LMM scraper?</li> <li>Do we block you based on that?</li> <li>Do you pass configured security rules?</li> <li>Is your request on an approved port?</li></ul></p>
+<p class="my-3 leading-relaxed">If you are eligable to enter, Cloudflare serves you from cache (fast) or fetches the page from the server and sends it back to you. This is why when Cloudflare "went down", X went down, Down Detector went down, etc. Just like we pulled the balluster under the internet.</p>
+<p class="my-3 leading-relaxed"><div class="flex justify-center my-6">   <img src="/images/blog/cloudflare-rust-unwrap/funny_internet.jpeg" alt="jpeg" class="rounded-lg max-w-md w-full" /> </div></p>
+<p class="my-3 leading-relaxed">One of Cloudflare's key services is <strong>bot management</strong>. It analyzes approximately 60 different features to build a statistical model determining wheter you're a bot or a legititame user. Are you high-risk or low-risk? Blocked or not?</p>
+<p class="my-3 leading-relaxed">But wait, these features can't be static. Cloudflare can't wait for engineers to deploy a new code every time a new bot attack vector shows up. Instead, feature flags are refreshed around <strong>every five minutes</strong>, allowing the system to adapt to new threats in near real-time.</p>
+<p class="my-3 leading-relaxed">Changes were made in their data storage service that slightly altered how data was retrived. When the next feature flag update came through, instead of receiving the expect 60 features, the bot management system suddenly received <strong>over 200 feature flags</strong>.</p>
+<p class="my-3 leading-relaxed">"That doesn't seems that bad right? Whats 140 extra features?"</p>
+<p class="my-3 leading-relaxed">Wrong, very wrong.</p>
+<h2 class="text-2xl font-bold mt-5 mb-2">Previously, on internet outages</h2>
+<p class="my-3 leading-relaxed">Don't forget the accident that happened back in september, about those excessive <code class="bg-primary-400 px-1 rounded text-sm">useEffect</code> (<a href="https://blog.cloudflare.com/deep-dive-into-cloudflares-sept-12-dashboard-and-api-outage" class="text-accent hover:underline">blog link</a>).</p>
+<p class="my-3 leading-relaxed">The internet has a long history of small code decisions causing massive impact.</p>
+<p class="my-3 leading-relaxed">The lesson? At scale, everything matters. Every. Single. Line.</p>
+<h2 class="text-2xl font-bold mt-5 mb-2">Why would Cloudflare use rust?</h2>
+<p class="my-3 leading-relaxed">Many people gone to X to take shots at Rust. "Another Rust failure!" they cried. But let's think about this rationally. Cloudflare operates at a scale where <strong>every microsecond counts</strong>. They handle millions of requests per second across their global network. Operating at this level of scale, you need:</p>
+<ol class="list-decimal pl-5 my-3 space-y-1"><li><strong>VERY fast performance</strong>: Comparable to C/C++</li>
+<li><strong>Memory safety</strong>: No buffer overflows or use-after-free bugs</li>
+<li><strong>Thread safety</strong>: Guaranteed at compile time</li>
+<li><strong>A strong type system</strong>: Catches errors before production</li></ol>
+<p class="my-3 leading-relaxed">For this with well-known inputs, well-known outputs, consistent behavior requirements, top-tier performance, you're essentially choosing between C and Rust.</p>
+<p class="my-3 leading-relaxed">Cloudflare chose Rust because of its excellent type system combined with C-level performance. And honestly? That's a pretty reasonable choice. The type system that "caused" this outage would likely have resulted in a similar crash in C (just with a different mechanism).</p>
+<h2 class="text-2xl font-bold mt-5 mb-2">.unwrap()</h2>
+<p class="my-3 leading-relaxed"><div class="flex justify-center my-6">   <img src="/images/blog/cloudflare-rust-unwrap/source_code.jpg" alt="Funny GIF" class="rounded-lg max-w-md w-full" /> </div></p>
+<p class="my-3 leading-relaxed">Let's talk about what <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code> actually does in Rust.</p>
+<p class="my-3 leading-relaxed">In Rust, there's no <code class="bg-primary-400 px-1 rounded text-sm">try-catch</code> like in JavaScript or Python. Instead, operations that might fail return a <code class="bg-primary-400 px-1 rounded text-sm">Result</code> type:</p>
+<pre class="hljs bg-primary-400 p-4 rounded-lg my-4 overflow-x-auto"><code class="language-rust"><span class="hljs-comment">// A Result is either Ok (value) or Err (error)</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">result</span>: <span class="hljs-type">Result</span>&lt;File, Error&gt; = File::<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;config.txt&quot;</span>);</code></pre>
+<p class="my-3 leading-relaxed">You're supposed to handle both cases explicitly:</p>
+<pre class="hljs bg-primary-400 p-4 rounded-lg my-4 overflow-x-auto"><code class="language-rust"><span class="hljs-keyword">match</span> File::<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;config.txt&quot;</span>) {
+    <span class="hljs-title function_ invoke__">Ok</span>(file) =&gt; {
+        <span class="hljs-comment">// Use the file</span>
+    },
+    <span class="hljs-title function_ invoke__">Err</span>(error) =&gt; {
+        <span class="hljs-comment">// Handle the error gracefully</span>
+        <span class="hljs-title function_ invoke__">log_error</span>(error);
+        <span class="hljs-keyword">return</span> default_value;
+    }
+}</code></pre>
+<p class="my-3 leading-relaxed">But sometimes, developers <em>know</em> something should never fail. Like when using a mutex - unless the lock is poisoned, it should always succeed. In these cases, they use <code class="bg-primary-400 px-1 rounded text-sm">.expect()</code> or <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code>:</p>
+<pre class="hljs bg-primary-400 p-4 rounded-lg my-4 overflow-x-auto"><code class="language-rust"><span class="hljs-comment">// .expect() provides a custom panic message</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">value</span> = <span class="hljs-title function_ invoke__">some_operation</span>().<span class="hljs-title function_ invoke__">expect</span>(<span class="hljs-string">&quot;This should never fail!&quot;</span>);
+
+<span class="hljs-comment">// .unwrap() provides a generic panic message</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">value</span> = <span class="hljs-title function_ invoke__">some_operation</span>().<span class="hljs-title function_ invoke__">unwrap</span>();</code></pre>
+<p class="my-3 leading-relaxed">The critical thing to understand: <strong>both <code class="bg-primary-400 px-1 rounded text-sm">.expect()</code> and <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code> are essentially assertions</strong>. If the operation fails, the program panics - it crashes.</p>
+<p class="my-3 leading-relaxed">This brings us to <a href="https://www.cs.otago.ac.nz/cosc345/resources/nasa-10-rules.htm" class="text-accent hover:underline">NASA's Power of 10 Rules</a> for safety-critical software, particularly Rule #5: "Use a minimum of two runtime assertions per function." These assertions help catch bugs early and ensure the system is operating within expected parameters.</p>
+<p class="my-3 leading-relaxed">For many applications, this is great advice. For servers handling millions of requests? Not so.</p>
+<h2 class="text-2xl font-bold mt-5 mb-2">Technical Deep Dive</h2>
+<p class="my-3 leading-relaxed">Here's where everything came together in a perfect storm of cascading failures. Cloudflare uses <strong>pre-allocation</strong> for performance. When their bot management service starts, it determines exactly how much memory it needs and allocates it upfront. This ensures consistent, predictable performance, no garbage collection pauses, no allocation overhead during request processing.</p>
+<p class="my-3 leading-relaxed">This follows NASA's principles: the world doesn't change underneath you. Hardware is fixed. Allocations are fixed. Performance is steady. Cloudflare had a safety check: "If we receive more than 200 feature flags, something is very wrong. Panic and fail fast rather than operate in an unknown state." When the data storage service changes caused 200+ features to be sent, this assertion fired. The service panicked. The thread crashed. Requests started failing.</p>
+<pre class="hljs bg-primary-400 p-4 rounded-lg my-4 overflow-x-auto"><code class="language-Rust"><span class="hljs-comment">/// Fetch edge features based on &#x27;input&#x27; struct into [&#x27;Features&#x27; buffer],</span>
+    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">fetch_features</span>(
+        &amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>,
+        input: &amp;<span class="hljs-keyword">dyn</span> BotsInput,
+        features: &amp;<span class="hljs-keyword">mut</span> Features,
+    ) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;(), (ErrorFlags, <span class="hljs-type">i32</span>)&gt; {
+        <span class="hljs-comment">// update features checksum (lower 32 bits) and copy edge feature names</span>
+        features.checksum &amp;= <span class="hljs-number">0xFFFF_FFFF_0000_0000</span>;
+        features.checksum |= <span class="hljs-type">u64</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-keyword">self</span>.config.checksum);
+        <span class="hljs-keyword">let</span> (feature_values, _) = features
+            .<span class="hljs-title function_ invoke__">append_with_names</span>(&amp;<span class="hljs-keyword">self</span>.config.feature_names)
+            .<span class="hljs-title function_ invoke__">unwrap</span>();
+    }</code></pre>
+Look at that innocent <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code> on the last line. The <code class="bg-primary-400 px-1 rounded text-sm">append_with_names()</code> function was designed to append feature names to a pre-allocated buffer. It returns a <code class="bg-primary-400 px-1 rounded text-sm">Result</code> because appending could fail, specifically, if you try to append more items than the buffer has space for.
+<p class="my-3 leading-relaxed">Under normal circumstances (60 features), this never fails. The buffer was sized appropriately. But when 200+ features arrived? The buffer overflowed. The <code class="bg-primary-400 px-1 rounded text-sm">Result</code> became an <code class="bg-primary-400 px-1 rounded text-sm">Err</code>. And that <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code> panicked.</p>
+<p class="my-3 leading-relaxed"><strong>But it gets worse.</strong> This wasn't happening on just one server, it was happening across Cloudflare's entire global network simultaneously. Remember, feature flags refresh every five minutes across <em>all</em> edge servers. So every five minutes, wave after wave of servers would receive the bloated feature set, panic, and crash.</p>
+<p class="my-3 leading-relaxed"><strong>The cascade in detail:</strong></p>
+<ol class="list-decimal pl-5 my-3 space-y-1"><li><strong>Root cause</strong>: Data storage service change causes over-delivery of feature flags (60 → 200+)</li>
+<li><strong>First wave</strong>: Edge servers receive new feature set during regular 5-minute refresh</li>
+<li><strong>Buffer overflow</strong>: <code class="bg-primary-400 px-1 rounded text-sm">append_with_names()</code> tries to fit 200+ features into a 60-feature buffer</li>
+<li><strong>Panic</strong>: The <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code> encounters an <code class="bg-primary-400 px-1 rounded text-sm">Err</code> and panics the thread</li>
+<li><strong>Thread crash</strong>: Worker thread handling bot management dies</li>
+<li><strong>Request failures</strong>: Incoming requests that need bot management start timing out</li>
+<li><strong>Global propagation</strong>: Pattern repeats across Cloudflare's entire edge network</li>
+<li><strong>Cascading outage</strong>: X, Discord, and thousands of other sites become unreachable</li>
+<li><strong>Duration</strong>: Multiple hours to identify, fix, and redeploy</li></ol>
+<p class="my-3 leading-relaxed">The beautiful irony? This safety check was designed to prevent the system from operating in an unknown, potentially dangerous state. "Better to fail fast than to corrupt data or make wrong security decisions," the thinking goes. And that's usually correct! But at Cloudflare's scale, with this particular failure mode, "fail fast" meant "fail everywhere, all at once." The safety mechanism became the catastrophe.</p>
+<p class="my-3 leading-relaxed">What should have happened instead? Something like this:</p>
+<pre class="hljs bg-primary-400 p-4 rounded-lg my-4 overflow-x-auto"><code class="language-rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">fetch_features</span>(
+    &amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>,
+    input: &amp;<span class="hljs-keyword">dyn</span> BotsInput,
+    features: &amp;<span class="hljs-keyword">mut</span> Features,
+) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;(), (ErrorFlags, <span class="hljs-type">i32</span>)&gt; {
+    features.checksum &amp;= <span class="hljs-number">0xFFFF_FFFF_0000_0000</span>;
+    features.checksum |= <span class="hljs-type">u64</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-keyword">self</span>.config.checksum);
+    
+    <span class="hljs-comment">// Handle the error gracefully instead of panicking</span>
+    <span class="hljs-keyword">let</span> (feature_values, _) = <span class="hljs-keyword">match</span> features.<span class="hljs-title function_ invoke__">append_with_names</span>(&amp;<span class="hljs-keyword">self</span>.config.feature_names) {
+        <span class="hljs-title function_ invoke__">Ok</span>(values) =&gt; values,
+        <span class="hljs-title function_ invoke__">Err</span>(e) =&gt; {
+            <span class="hljs-comment">// Log the error for investigation</span>
+            log::error!(<span class="hljs-string">&quot;Feature buffer overflow: {} features received&quot;</span>, 
+                       <span class="hljs-keyword">self</span>.config.feature_names.<span class="hljs-title function_ invoke__">len</span>());
+            
+            <span class="hljs-comment">// Return cached features or use safe defaults</span>
+            <span class="hljs-comment">// This way the service degrades gracefully instead of crashing</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">Err</span>((ErrorFlags::FEATURE_OVERFLOW, -<span class="hljs-number">1</span>));
+        }
+    };
+}</code></pre>
+<p class="my-3 leading-relaxed">This version would have logged the anomaly, alerted engineers, and continued serving traffic with cached feature sets. The internet would have kept running while Cloudflare investigated. Instead, that single <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code> brought everything down.</p>
+<h2 class="text-2xl font-bold mt-5 mb-2">Lessons learned.</h2>
+<p class="my-3 leading-relaxed"><strong>Small decisions have massive consequences at scale.</strong> That <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code> probably seemed totally reasonable when it was written. "We'll never get more than 200 features!" Famous last words.</p>
+<p class="my-3 leading-relaxed"><strong>Test your failure modes.</strong> Everyone tests the happy path. How many test what happens when you get 3x the expected input?</p>
+<p class="my-3 leading-relaxed"><strong>Fail gracefully when possible.</strong> Sometimes crashing is the right answer (corrupted data, security breach). Sometimes serving cached data with degraded functionality is better than serving nothing at all.</p>
+<p class="my-3 leading-relaxed">Look, Cloudflare is filled with some of the best engineers in the industry. They just got done being taken out by React <code class="bg-primary-400 px-1 rounded text-sm">useEffect</code> hooks and now they're being owned by a Rust <code class="bg-primary-400 px-1 rounded text-sm">.unwrap()</code>. The internet had a field day with this. These are the challenges of operating at extreme scale with extreme performance requirements. Every microsecond matters. Every allocation matters. Every line of code matters.</p>
+<p class="my-3 leading-relaxed">The lesson isn't "don't use Rust" or "unwrap is bad." The lesson is: <strong>understand your constraints, test your failure modes, and fail gracefully when possible.</strong> And hey, at least it wasn't <code class="bg-primary-400 px-1 rounded text-sm">useEffect</code> this time.</p>
+<p class="my-3 leading-relaxed"><!-- Medium screenshot --> <div class="flex justify-center my-6">   <img src="/images/blog/cloudflare-rust-unwrap/funny_status.jpg" alt="Internet meme" class="rounded-lg max-w-xl w-full" /> </div></p>
+<h2 class="text-2xl font-bold mt-5 mb-2">Sources</h2>
+<p class="my-3 leading-relaxed"><a href="https://www.youtube.com/watch?v=sJBaMJfxzYk" class="text-accent hover:underline">Another Internet outage??? - ThePrimagen</a></p>
+<p class="my-3 leading-relaxed"><a href="https://www.reddit.com/r/reactjs/comments/1nfr6pp/cloudflare_outage_due_to_excessive_useeffect_api/" class="text-accent hover:underline">Cloudflare outage due to excessive useEffect API calls - Reddit</a></p>
+<p class="my-3 leading-relaxed"><a href="https://blog.cloudflare.com/18-november-2025-outage/" class="text-accent hover:underline">Cloudflare outage on November 18, 2025 - The Cloudflare Blog</a></p>4:["$","div",null,{"className":"min-h-screen bg-primary text-light","children":["$","div",null,{"className":"container mx-auto px-4 py-16 max-w-4xl","children":[["$","$L12",null,{"href":"/","className":"text-accent hover:underline mb-8 block","children":"← Back to home"}],["$","h1",null,{"className":"text-4xl font-bold mb-4","children":"The Cloudflare Outage: A Deep Dive into Rust's unwrap() Incident"}],["$","div",null,{"className":"text-neutral mb-8","children":"November 20, 2025"}],["$","article",null,{"className":"prose prose-invert prose-lg max-w-none","children":["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$13"},"className":"blog-content"}]}]]}]}]
+9:null
+d:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+8:null
+11:{"metadata":[["$","title","0",{"children":"The Cloudflare Outage: A Deep Dive into Rust's unwrap() Incident"}],["$","meta","1",{"name":"description","content":"How a single .unwrap() call in Rust caused a massive global outage at Cloudflare and what we can learn from it."}],["$","link","2",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}]],"error":null,"digest":"$undefined"}
+b:{"metadata":"$11:metadata","error":null,"digest":"$undefined"}
