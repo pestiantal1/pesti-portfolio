@@ -7,7 +7,7 @@ title: "The Cloudflare Outage: A Deep Dive into Rust's unwrap() Incident"
 ## TL;DR
 
 <div class="flex justify-center my-6">
-  <img src="/images/blog/cloudflare-rust-unwrap-incident-incident/funny.gif" alt="gif" class="rounded-lg max-w-md w-full" />
+  <img src="/images/blog/cloudflare-rust-unwrap-incident/funny.gif" alt="gif" class="rounded-lg max-w-md w-full" />
 </div>
 
 So Cloudflare did an oopsie on November 18, 2025, making half of the internet users worried about their ISP. X, Discord and many other sites were affected.
