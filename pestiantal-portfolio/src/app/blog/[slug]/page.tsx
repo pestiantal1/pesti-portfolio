@@ -114,25 +114,65 @@ function formatMarkdown(markdown: string) {
   return result;
 }
 
-// Metadata function
+// Metadata function - UPDATED to handle async params
 export async function generateMetadata({ 
   params 
 }: { 
   params: Promise<{ slug: string }> 
 }): Promise<Metadata> {
+  // Await the params
   const resolvedParams = await params;
-  const post = blogPosts.find(post => post.slug === resolvedParams.slug);
+  const post = blogPosts.find(p => p.slug === resolvedParams.slug);
   
   if (!post) {
     return {
       title: 'Post Not Found',
-      description: 'The requested blog post could not be found'
     };
   }
+
+  const baseUrl = 'https://pantal.dev';
+  const postUrl = `${baseUrl}/blog/${resolvedParams.slug}`;
   
+  // You can use one of your blog images or create a specific OG image
+  const ogImage = `${baseUrl}/images/blog/${resolvedParams.slug}/og-image.jpg`;
+
   return {
     title: post.title,
-    description: post.excerpt
+    description: post.excerpt,
+    
+    // Open Graph tags (these work for Twitter too as fallbacks)
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: postUrl,
+      siteName: 'pantal',
+      type: 'article',
+      publishedTime: post.date,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      locale: 'en_US',
+    },
+    
+    // Twitter Card specific tags
+    twitter: {
+      card: 'summary_large_image', // This is the most common card type
+      site: '@pesti_antal', // Add your Twitter/X handle here
+      creator: '@pesti_antal', // Your Twitter/X handle
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImage],
+    },
+    
+    // Additional metadata
+    alternates: {
+      canonical: postUrl,
+    },
   };
 }
 
