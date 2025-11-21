@@ -7,7 +7,7 @@ title: "The Cloudflare Outage: A Deep Dive into Rust's unwrap() Incident"
 ## TL;DR
 
 <div class="flex justify-center my-6">
-  <img src="/images/blog/cloudflare-rust-unwrap/funny.gif" alt="gif" class="rounded-lg max-w-md w-full" />
+  <img src="/images/blog/cloudflare-rust-unwrap-incident-incident/funny.gif" alt="gif" class="rounded-lg max-w-md w-full" />
 </div>
 
 So Cloudflare did an oopsie on November 18, 2025, making half of the internet users worried about their ISP. X, Discord and many other sites were affected.
@@ -29,7 +29,7 @@ If you are eligable to enter, Cloudflare serves you from cache (fast) or fetches
 This is why when Cloudflare "went down", X went down, Down Detector went down, etc. Just like we pulled the balluster under the internet.
 
 <div class="flex justify-center my-6">
-  <img src="/images/blog/cloudflare-rust-unwrap/funny_internet.jpeg" alt="jpeg" class="rounded-lg max-w-md w-full" />
+  <img src="/images/blog/cloudflare-rust-unwrap-incident/funny_internet.jpeg" alt="jpeg" class="rounded-lg max-w-md w-full" />
 </div>
 
 One of Cloudflare's key services is **bot management**. It analyzes approximately 60 different features to build a statistical model determining wheter you're a bot or a legititame user.
@@ -72,7 +72,7 @@ Cloudflare chose Rust because of its excellent type system combined with C-level
 ## .unwrap()
 
 <div class="flex justify-center my-6">
-  <img src="/images/blog/cloudflare-rust-unwrap/source_code.jpg" alt="Funny GIF" class="rounded-lg max-w-md w-full" />
+  <img src="/images/blog/cloudflare-rust-unwrap-incident/source_code.jpg" alt="Funny GIF" class="rounded-lg max-w-md w-full" />
 </div>
 
 Let's talk about what `.unwrap()` actually does in Rust.
@@ -205,7 +205,7 @@ The lesson isn't "don't use Rust" or "unwrap is bad." The lesson is: **understan
 
 <!-- Medium screenshot -->
 <div class="flex justify-center my-6">
-  <img src="/images/blog/cloudflare-rust-unwrap/funny_status.jpg" alt="Internet meme" class="rounded-lg max-w-xl w-full" />
+  <img src="/images/blog/cloudflare-rust-unwrap-incident/funny_status.jpg" alt="Internet meme" class="rounded-lg max-w-xl w-full" />
 </div>
 
 ## Sources
