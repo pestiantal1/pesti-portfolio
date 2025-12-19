@@ -14,28 +14,6 @@ const LINKEDIN_URL = "https://www.linkedin.com/in/antal-pesti-0b7638223";
 const TWITTER_URL = "https://x.com/pesti_antal";
 const EMAIL = "pesti.antal1@gmail.com";
 
-// Hardcoded blog posts for GitHub Pages (no server-side file reading)
-// const blogPosts = [
-//   {
-//     title: "Exploring Machine Learning Algorithms",
-//     date: "June 5, 2025",
-//     slug: "exploring-ml-algorithms",
-//     excerpt: "An overview of popular machine learning algorithms and their applications."
-//   },
-//   {
-//     title: "Building Responsive UIs with React",
-//     date: "May 28, 2025",
-//     slug: "react-responsive-ui",
-//     excerpt: "Best practices for creating responsive user interfaces with React."
-//   },
-//   {
-//     title: "Data Structures Every Developer Should Know",
-//     date: "May 15, 2025",
-//     slug: "essential-data-structures",
-//     excerpt: "A guide to the fundamental data structures used in software development."
-//   }
-// ];
-
 export default function Home() {
   const [nameText, setNameText] = useState('')
   const [roleText, setRoleText] = useState('')
@@ -45,14 +23,13 @@ export default function Home() {
   const [cursorVisible, setCursorVisible] = useState(true)
   
   const fullName = 'Antal Pesti'
-  // Wrap roles in useMemo to prevent it from changing on each render
   const roles = useMemo(() => ['Python teacher', 'ML Engineer', 'Software Developer'], []);
   
   // Effect for cursor blinking animation
   useEffect(() => {
     const blinkInterval = setInterval(() => {
       setCursorVisible(prev => !prev);
-    }, 530); // Slower blink rate for more noticeable effect
+    }, 530);
     
     return () => clearInterval(blinkInterval);
   }, []);
@@ -74,40 +51,31 @@ export default function Home() {
   
   // Effect for the role typing animation (loops)
   useEffect(() => {
-    // Start the role typing animation after the name is complete
     if (nameText !== fullName) return
     
     const currentRole = roles[roleIndex]
     
-    // For backspacing effect (faster deletion)
     if (isDeleting) {
       setTypingSpeed(70)
     } else {
       setTypingSpeed(75)
     }
     
-    // Create a variable delay for each role
-    // Developer stays longer
     const pauseLength = roleIndex === roles.length - 1 ? 2500 : 1000
     
     const timer = setTimeout(() => {
-      // If deleting
       if (isDeleting) {
         setRoleText(currentRole.substring(0, roleText.length - 1))
         
-        // When finished deleting
         if (roleText.length === 0) {
           setIsDeleting(false)
-          setRoleIndex((roleIndex + 1) % roles.length) // Move to next role
+          setRoleIndex((roleIndex + 1) % roles.length)
         }
       } 
-      // If typing
       else {
         setRoleText(currentRole.substring(0, roleText.length + 1))
         
-        // When finished typing
         if (roleText.length === currentRole.length) {
-          // Pause at the end of typing before starting to delete
           setTimeout(() => setIsDeleting(true), pauseLength)
         }
       }
@@ -149,7 +117,7 @@ export default function Home() {
         
         {/* Social links */}
         <motion.div 
-          className="flex space-x-6 mb-20"
+          className="flex space-x-6 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
@@ -170,6 +138,21 @@ export default function Home() {
             className="text-3xl text-neutral hover:text-accent transition-all duration-300">
             <FaEnvelope />
           </a>
+        </motion.div>
+        
+        {/* Projects Button */}
+        <motion.div 
+          className="flex justify-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+        >
+          <Link
+            href="/projects"
+            className="py-2 px-6 rounded-full font-medium text-sm transition-all duration-300 bg-primary border-2 border-secondary text-light hover:bg-secondary-200"
+          >
+            Projects
+          </Link>
         </motion.div>
         
         {/* Blog post list */}

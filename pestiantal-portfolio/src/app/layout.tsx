@@ -35,7 +35,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        // Apply inter as the main font by putting it first in the class list
         className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} font-inter antialiased`}
       >
         {children}

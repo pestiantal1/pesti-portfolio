@@ -1,0 +1,65 @@
+[
+  {
+    "id": "kairon",
+    "name": "Kairon",
+    "version": "0.1.0",
+    "shortDescription": "An LLM based life organizer with RPG elements",
+    "fullDescription": "Kairon is an AI-powered life management application that gamifies personal productivity. It combines large language models with role-playing game mechanics to help users organize their tasks and goals in an engaging way.",
+    "icon": "/images/projects/kairon/default_icon.png",
+    "images": [
+      "/images/projects/kairon/screenshot_1.png"
+    ],
+    "stack": [
+      { "name": "JavaScript", "icon": "javascript" },
+      { "name": "Vite", "icon": "vite" },
+      { "name": "Tailwind CSS", "icon": "tailwindcss" },
+      { "name": "Python", "icon": "python" }
+    ],
+    "githubUrl": "",
+    "liveUrl": "",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-12-19T00:00:00.000Z"
+  },
+  {
+    "id": "gravitas",
+    "name": "Gravitas",
+    "version": "0.4.0",
+    "shortDescription": "Simple private cloud based weight tracker app for android",
+    "fullDescription": "Gravitas is a privacy-focused weight tracking application for Android devices. Built with React Native and powered by a Python backend hosted on DigitalOcean, it provides a secure and simple way to monitor your fitness journey with cloud synchronization.",
+    "icon": "/images/projects/gravitas/icon.png",
+    "images": [
+      "/images/projects/gravitas/screenshot.jpg"
+    ],
+    "stack": [
+      { "name": "TypeScript", "icon": "typescript" },
+      { "name": "React Native", "icon": "react" },
+      { "name": "Python", "icon": "python" },
+      { "name": "Kotlin", "icon": "kotlin" },
+      { "name": "Swift", "icon": "swift" },
+      { "name": "DigitalOcean", "icon": "digitalocean" }
+    ],
+    "githubUrl": "",
+    "liveUrl": "",
+    "createdAt": "2024-03-01T00:00:00.000Z",
+    "updatedAt": "2024-12-19T00:00:00.000Z"
+  },
+  {
+    "id": "consent",
+    "name": "Consent",
+    "version": "0.9.0",
+    "shortDescription": "Game jam entry, Papers please inspired clinic horror game",
+    "fullDescription": "Consent is a narrative-driven horror game created for a game jam. Inspired by Papers, Please, it puts players in the role of a clinic worker making difficult decisions. Built entirely in GDScript using the Godot engine, it explores themes of autonomy and ethical dilemmas in a tense, atmospheric setting.",
+    "icon": "/images/projects/consent/icon.png",
+    "images": [
+      "/images/projects/consent/screenshot_1.png",
+      "/images/projects/consent/screenshot.png"
+    ],
+    "stack": [
+      { "name": "GDScript", "icon": "godotengine" }
+    ],
+    "githubUrl": "",
+    "liveUrl": "https://t0nya.itch.io/consent",
+    "createdAt": "2024-06-01T00:00:00.000Z",
+    "updatedAt": "2024-12-19T00:00:00.000Z"
+  }
+]
