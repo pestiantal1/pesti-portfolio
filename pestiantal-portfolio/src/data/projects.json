@@ -10,10 +10,22 @@
       "/images/projects/kairon/screenshot_1.png"
     ],
     "stack": [
-      { "name": "JavaScript", "icon": "javascript" },
-      { "name": "Vite", "icon": "vite" },
-      { "name": "Tailwind CSS", "icon": "tailwindcss" },
-      { "name": "Python", "icon": "python" }
+      {
+        "name": "JavaScript",
+        "icon": "javascript"
+      },
+      {
+        "name": "Vite",
+        "icon": "vite"
+      },
+      {
+        "name": "Tailwind CSS",
+        "icon": "tailwindcss"
+      },
+      {
+        "name": "Python",
+        "icon": "python"
+      }
     ],
     "githubUrl": "",
     "liveUrl": "",
@@ -31,12 +43,30 @@
       "/images/projects/gravitas/screenshot.jpg"
     ],
     "stack": [
-      { "name": "TypeScript", "icon": "typescript" },
-      { "name": "React Native", "icon": "react" },
-      { "name": "Python", "icon": "python" },
-      { "name": "Kotlin", "icon": "kotlin" },
-      { "name": "Swift", "icon": "swift" },
-      { "name": "DigitalOcean", "icon": "digitalocean" }
+      {
+        "name": "TypeScript",
+        "icon": "typescript"
+      },
+      {
+        "name": "React Native",
+        "icon": "react"
+      },
+      {
+        "name": "Python",
+        "icon": "python"
+      },
+      {
+        "name": "Kotlin",
+        "icon": "kotlin"
+      },
+      {
+        "name": "Swift",
+        "icon": "swift"
+      },
+      {
+        "name": "DigitalOcean",
+        "icon": "digitalocean"
+      }
     ],
     "githubUrl": "",
     "liveUrl": "",
@@ -55,11 +85,70 @@
       "/images/projects/consent/screenshot.png"
     ],
     "stack": [
-      { "name": "GDScript", "icon": "godotengine" }
+      {
+        "name": "GDScript",
+        "icon": "godotengine"
+      }
     ],
     "githubUrl": "",
     "liveUrl": "https://t0nya.itch.io/consent",
     "createdAt": "2024-06-01T00:00:00.000Z",
     "updatedAt": "2024-12-19T00:00:00.000Z"
+  },
+  {
+    "id": "asbio",
+    "name": "ASBIO",
+    "version": "0.1.0",
+    "shortDescription": "A lightweight web application for managing small-scale gaming tournaments (10-50 players).",
+    "fullDescription": "Players register, join tournaments, and compete across multiple games. Administrators create tournaments, manage brackets, and enter results. All scores feed into a unified leaderboard that rewards both performance and participation.",
+    "icon": "/images/projects/asbio/icon.png",
+    "images": [
+      "/images/projects/asbio/screenshot.png",
+      "/images/projects/asbio/screenshot_1.png"
+    ],
+    "stack": [
+      {
+        "name": "Vue.js",
+        "icon": "javascript"
+      },
+      {
+        "name": "SCSS",
+        "icon": "scss"
+      },
+      {
+        "name": "FastAPI",
+        "icon": "python"
+      },
+      {
+        "name": "PostgreSQL",
+        "icon": "postgresql"
+      }
+    ],
+    "githubUrl": "",
+    "liveUrl": "http://134.199.223.46/asbio-web/login",
+    "createdAt": "2025-12-19T11:18:48.885968",
+    "updatedAt": "2025-12-19T11:21:04.621510"
+  },
+  {
+    "id": "discord_gemini_bot",
+    "name": "Discord Gemini Bot",
+    "version": "1.0.0",
+    "shortDescription": "TTS Discord bot using Google Gemini LLM API with personality and language configuration.",
+    "fullDescription": "Hungarian AI teaching assistant who explains programming concepts with a unique blend of technical expertise and dad humor. He speaks in voice channels, switches between Hungarian and English, and brings personality to your Discord server!",
+    "icon": "/images/projects/discord_gemini_bot/default_icon.png",
+    "images": [
+      "/images/projects/discord_gemini_bot/screenshot.png",
+      "/images/projects/discord_gemini_bot/screenshot_1.png"
+    ],
+    "stack": [
+      {
+        "name": "Javascript",
+        "icon": "javascript"
+      }
+    ],
+    "githubUrl": "",
+    "liveUrl": "",
+    "createdAt": "2025-12-19T11:22:09.858492",
+    "updatedAt": "2025-12-19T11:31:01.290400"
   }
 ]
