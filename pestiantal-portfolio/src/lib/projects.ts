@@ -82,14 +82,19 @@ export function clearProjectsCache(): void {
  */
 async function fetchProjectsFromAPI(): Promise<RawProject[] | null> {
   try {
+    // Create abort controller for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
     const response = await fetch(API_URL, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      // Add timeout for faster fallback
-      signal: AbortSignal.timeout(5000), // 5 second timeout
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       console.warn(`API returned status ${response.status}`);
