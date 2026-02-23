@@ -18,3 +18,19 @@ export interface TechStack {
   icon: string; // Path to stack icon or icon component name
   color?: string; // Optional color for the icon
 }
+
+// Raw project data as received from API or JSON (dates as strings)
+export interface RawProject {
+  id: string;
+  name: string;
+  version: string;
+  shortDescription: string;
+  fullDescription?: string;
+  icon: string;
+  images: string[];
+  stack: TechStack[];
+  githubUrl?: string;
+  liveUrl?: string;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+}
